@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 import sys
 import os
 import csv
@@ -6,15 +7,27 @@ import csv
 #from PySide6.QtCore import *
 #from PySide6.QtGui import *
 #from PySide6.QtWidgets import *
-from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
-    QMetaObject, QObject, QPoint, QRect,
-    QSize, QTime, QUrl, Qt)
-from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
-    QFont, QFontDatabase, QGradient, QIcon,
-    QImage, QKeySequence, QLinearGradient, QPainter,
-    QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QDialog, QGraphicsView, QLabel,
-    QPushButton, QSizePolicy, QVBoxLayout, QWidget)
+from PySide6.QtCore import (
+    #QCoreApplication, QDate, QDateTime, QLocale,
+    #QMetaObject, QObject, QPoint, QRect,QSize, QTime, QUrl,
+    Qt
+    )
+from PySide6.QtGui import (
+    #QBrush, QColor, QConicalGradient, QCursor,
+    QFont,
+    #QFontDatabase, QGradient, QIcon,
+    #QImage, QKeySequence, QLinearGradient, QPainter,
+    QPixmap,
+    #QPalette,QRadialGradient, QTransform
+    )
+from PySide6.QtWidgets import (
+    QApplication,
+    QDialog,
+    QGraphicsView,
+    QGraphicsScene,
+    QGraphicsPixmapItem,
+    #QLabel, QPushButton, QSizePolicy, QVBoxLayout, QWidget
+    )
 from ui_qtpy001 import Ui_Dialog
 
 class Test(QDialog):
@@ -32,8 +45,14 @@ class Test(QDialog):
         self.setGeometry(xPos, yPos, windowWidth, windowHeight)
         self.setWindowFlags(Qt.FramelessWindowHint)
 
-        with open('./moji.csv') as f:
-            reader = csv.reader(f)
+        with open('./moji.csv', "r", encoding="utf_8") as csv_file:
+            reader = csv.reader(csv_file,
+                                delimiter=",",
+                                #doublequoto=True,
+                                #lineterminator="/r/n",
+                                #quotechar='"',
+                                #skipinitialspace=True
+                                )
             for self.row in reader:
                 print(self.row)
 
@@ -49,6 +68,9 @@ class Test(QDialog):
         ImageFile.append(r'./moji01.png')
         ImageFile.append(r'./moji02.png')
 
+        self.view = self.ui.graphicsView # GraphicsView は ui 内で作られている
+        self.scene = QGraphicsScene() # Scene のみ作成・設定
+        self.ui.graphicsView.setScene(self.scene)
 
     def button1(self):
         labelStyle = """QLabel {
@@ -60,10 +82,16 @@ class Test(QDialog):
         self.ui.label.setStyleSheet(labelStyle)
         #self.ui.label.setFont(QFont(""))
         self.ui.label.setText(self.row[0])
+
         self.ui.label_2.setStyleSheet("background-color:blue;")
         image = QPixmap(ImageFile[0])
         self.ui.label_2.setPixmap(image)
 
+        self.scene.clear()
+        pic_Item = QGraphicsPixmapItem(QPixmap(ImageFile[0]))
+        self.scene.addItem(pic_Item)
+        self.ui.graphicsView.setScene(self.scene)
+        self.ui.graphicsView.show()
 
     def button2(self):
         labelStyle = """QLabel {
@@ -75,29 +103,38 @@ class Test(QDialog):
         self.ui.label.setStyleSheet(labelStyle)
         self.ui.label.setFont(QFont("klee"))
         self.ui.label.setText(self.row[1])
+
         self.ui.label_2.setStyleSheet("background-color:black;")
         image = QPixmap(r"./moji02.png")
         self.ui.label_2.setPixmap(image)
 
+        self.scene.clear()
+        pic_Item = QGraphicsPixmapItem(QPixmap(ImageFile[1]))
+        self.scene.addItem(pic_Item)
+        self.ui.graphicsView.setScene(self.scene)
+        self.ui.graphicsView.show()
 
     def button3(self):
         # 見た目の設定をラベルに反映させるS
         self.ui.label.setStyleSheet("color:white;font-size:24px;background-color:black;")
         self.ui.label.setText(self.row[2])
+        self.ui.graphicsView.hide()
 
     def button4(self):
         self.ui.label.setStyleSheet("color:white;font-size:24px;background-color:black;")
         self.ui.label.setFont(QFont("Osaka"))
         self.ui.label.setText(self.row[3])
+        self.ui.graphicsView.hide()
 
     def button5(self):
         self.ui.label.setStyleSheet("color:white;font-size:24px;background-color:black;")
         self.ui.label.setText(self.row[4])
+        self.ui.graphicsView.hide()
 
     def button6(self):
         self.ui.label.setStyleSheet("color:white;font-size:24px;background-color:black;")
         self.ui.label.setText(self.row[5])
-
+        self.ui.graphicsView.hide()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
