@@ -17,7 +17,7 @@ from PySide6.QtGui import (
     QFont,
     #QFontDatabase, QGradient, QIcon,
     #QImage, QKeySequence, QLinearGradient, QPainter,
-    QPixmap,
+    QPixmap, QPainter, QBrush, QPen
     #QPalette,QRadialGradient, QTransform
     )
 from PySide6.QtWidgets import (
@@ -135,6 +135,26 @@ class Test(QDialog):
         self.ui.label.setStyleSheet("color:white;font-size:24px;background-color:black;")
         self.ui.label.setText(self.row[5])
         self.ui.graphicsView.hide()
+
+    # 描画するウィジェットに対して、paintEventイベントをオーバーライドする
+    def paintEvent(self, event):
+        # QPainterオブジェクトを作成し、ウィジェットに対してbegin()を呼び出す
+        self.painter = QPainter(self)
+        self.painter.begin(self)
+    
+        # 色やスタイルを設定する
+        brush = QBrush(Qt.red)
+        self.painter.setBrush(brush)
+    
+        pen = QPen(Qt.blue)
+        pen.setWidth(2)
+        self.painter.setPen(pen)
+    
+    # 図形を描画する
+        self.painter.drawRect(50, 500, 100, 100)
+    
+    # QPainterオブジェクトを解放する
+        self.painter.end()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
