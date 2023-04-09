@@ -4,30 +4,24 @@ import sys
 import os
 import csv
 #import cv2
+
 #from PySide6.QtCore import *
 #from PySide6.QtGui import *
 #from PySide6.QtWidgets import *
-from PySide6.QtCore import (
-    #QCoreApplication, QDate, QDateTime, QLocale,
-    #QMetaObject, QObject, QPoint, QRect,QSize, QTime, QUrl,
-    Qt
-    )
-from PySide6.QtGui import (
-    #QBrush, QColor, QConicalGradient, QCursor,
-    QFont,
-    #QFontDatabase, QGradient, QIcon,
-    #QImage, QKeySequence, QLinearGradient, QPainter,
-    QPixmap, QPainter, QBrush, QPen
-    #QPalette,QRadialGradient, QTransform
-    )
-from PySide6.QtWidgets import (
-    QApplication,
-    QDialog,
-    QGraphicsView,
-    QGraphicsScene,
-    QGraphicsPixmapItem,
-    #QLabel, QPushButton, QSizePolicy, QVBoxLayout, QWidget
-    )
+
+from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
+                            QMetaObject, QObject, QPoint, QRect, QSize,
+                            QTime, QUrl, Qt)
+from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
+                            QFont, QFontDatabase, QGradient, QIcon,
+                            QImage, QKeySequence, QLinearGradient,
+                            QPainter, QPixmap, QPainter, QBrush, QPen,
+                            QPalette, QRadialGradient, QTransform,
+                            QPolygonF, QPolygon, QPolygon)
+from PySide6.QtWidgets import (QApplication,QDialog,QGraphicsView,
+                            QGraphicsScene,QGraphicsPixmapItem,
+                            QLabel, QPushButton, QSizePolicy,
+                            QVBoxLayout, QWidget)
 from ui_qtpy001 import Ui_Dialog
 
 class Test(QDialog):
@@ -136,25 +130,6 @@ class Test(QDialog):
         self.ui.label.setText(self.row[5])
         self.ui.graphicsView.hide()
 
-    # 描画するウィジェットに対して、paintEventイベントをオーバーライドする
-    def paintEvent(self, event):
-        # QPainterオブジェクトを作成し、ウィジェットに対してbegin()を呼び出す
-        self.painter = QPainter(self)
-        self.painter.begin(self)
-    
-        # 色やスタイルを設定する
-        brush = QBrush(Qt.red)
-        self.painter.setBrush(brush)
-    
-        pen = QPen(Qt.blue)
-        pen.setWidth(2)
-        self.painter.setPen(pen)
-    
-    # 図形を描画する
-        self.painter.drawRect(50, 500, 100, 100)
-    
-    # QPainterオブジェクトを解放する
-        self.painter.end()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
