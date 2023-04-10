@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 import PySide6
 from PySide6.QtWidgets import (QApplication,
-                               QDialog,         # ダイアログを使うのに必要
-                               QLabel,          # ラベルを使うのに必要
-                               QPushButton,     # ボタンを使うのに必要
-                               QWidget)
+                                QDialog,         # ダイアログを使うのに必要
+                                QLabel,          # ラベルを使うのに必要
+                                QPushButton,     # ボタンを使うのに必要
+                                QWidget)
 import os
 import sys
 
@@ -14,20 +14,20 @@ class MainWindow(QWidget):
     def __init__(self, parent=None):
         # 親クラスの初期化
         super().__init__(parent)
-        
+
         # ウィンドウタイトル
         self.setWindowTitle("PySide6で作ったアプリです。")
-        
+
         # ボタンを表示するメソッド
         self.SetButton()
-        
+
     # ボタンは別のメソッドに分けました
     def SetButton(self):
         button = QPushButton(self)          # ボタンを使うことを宣言
         button.setText("最近だらしねぇな")  # ボタンに表示する文字
         # ボタンがクリックされたら呼び出す処理
         button.clicked.connect(self.CallbackClickedButton)
-        
+
     # ボタンがクリックされたら実行する処理
     def CallbackClickedButton(self):
         dialog = QDialog()                              # ダイアログを使うことを宣言

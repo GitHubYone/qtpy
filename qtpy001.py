@@ -22,7 +22,7 @@ from PySide6.QtWidgets import (QApplication,QDialog,QGraphicsView,
                             QGraphicsScene,QGraphicsPixmapItem,
                             QLabel, QPushButton, QSizePolicy,
                             QVBoxLayout, QWidget)
-from ui_qtpy001 import Ui_Dialog
+from qtpy001_ui import Ui_Dialog
 
 class Test(QDialog):
     def __init__(self,parent=None):

@@ -29,7 +29,7 @@ class MainWindow(QMainWindow):
 
         # カスタムウィジェットを作成して、ウィンドウに追加する
         custom_widget = CustomWidget(self.window)
-        custom_widget.setGeometry(50, 50, 200, 200)
+        custom_widget.setGeometry(50, 50, 300, 300)
         self.window.layout().addWidget(custom_widget)
 
         self.setCentralWidget(self.window)
