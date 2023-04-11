@@ -3,8 +3,8 @@ import  os
 import  sys
 
 # 動画ファイルのパスを指定
-video_path = "C:\ywork\qtpy\dualHA_BSH2.mp4"
-
+#video_path = "C:\ywork\qtpy\dualHA_BSH2.mp4"
+video_path = ("./dualHA_BSH2.mp4")
 # 動画ファイルを開く
 cap = cv2.VideoCapture(video_path)
 

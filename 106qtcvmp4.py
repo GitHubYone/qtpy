@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import os
 import sys
 from PySide6.QtCore import *
 from PySide6.QtGui import *

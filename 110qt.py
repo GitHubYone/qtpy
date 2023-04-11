@@ -1,14 +1,16 @@
 # -*- coding: utf-8 -*-
 
+import os
 import sys
 import cv2
-import numpy as np
 from PySide6 import QtCore, QtGui, QtWidgets
 from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 
-class VideoPlayer(QtWidgets.QWidget):
+
+class VideoPlayer(QWidget):
+#class VideoPlayer(QtWidgets.QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setFocusPolicy(Qt.StrongFocus) # キーボードフォーカスを設定
@@ -68,13 +70,35 @@ class VideoPlayer(QtWidgets.QWidget):
             self.timer.stop()
             self.cap.release()
 
+    def contextMenuEvent(self, event):
+        # 右クリックされた場所の座標を取得
+        pos = event.pos()
+
+        # QMenuを作成
+        menu = QMenu(self)
+
+        # QMenuにQActionを追加
+        newAction = QAction('New', self)
+        menu.addAction(newAction)
+
+        openAction = QAction('Open', self)
+        menu.addAction(openAction)
+
+        quitAction = QAction('Quit', self)
+        menu.addAction(quitAction)
+
+        # 右クリックされた場所にQMenuを表示
+        menu.move(self.mapToGlobal(pos))
+        menu.show()
+
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_Escape: # Escapeキーが押された場合
+            self.close() # アプリケーションを終了
+        if event.key() == Qt.Key_Q: # Qキーが押された場合
             self.close() # アプリケーションを終了
 
 
 if __name__ == '__main__':
-    import sys
     app = QtWidgets.QApplication(sys.argv)
     player = VideoPlayer()
     player.load_video('')
