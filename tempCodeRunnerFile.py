@@ -1,1 +1,0 @@
-"C:\ywork\qtpy\dualHA_BSH2.mp4"
